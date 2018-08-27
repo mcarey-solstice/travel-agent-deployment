@@ -11,6 +11,8 @@ jobs:
     - task: generate-configs
       file: pipeline/ci/tasks/generate-configs.yml
       params:
+        VAULT_ADDR: ((vault.address))
+        VAULT_TOKEN: ((vault.token))
         SETTINGS: ((sandbox.settings))
     - task: use-configs
       file: pipeline/ci/tasks/use-configs.yml
@@ -26,6 +28,8 @@ jobs:
     - task: generate-configs
       file: pipeline/ci/tasks/generate-configs.yml
       params:
+        VAULT_ADDR: ((vault.address))
+        VAULT_TOKEN: ((vault.token))
         SETTINGS: ((nonprod.settings))
     - task: use-configs
       file: pipeline/ci/tasks/use-configs.yml
@@ -36,16 +40,16 @@ resources:
 - name: pipeline
   type: git
   source:
-    uri: https://github.com/mcareysolstice/travel-agent-deployment
+    uri: https://github.com/mcarey-solstice/travel-agent-deployment
 
 - name: sandbox-config
   type: git
   source:
-    uri: https://github.com/mcareysolstice/travel-agent-configs
+    uri: https://github.com/mcarey-solstice/travel-agent-configs
     path: sandbox
 
 - name: nonprod-config
   type: git
   source:
-    uri: https://github.com/mcareysolstice/travel-agent-configs
+    uri: https://github.com/mcarey-solstice/travel-agent-configs
     path: nonprod
