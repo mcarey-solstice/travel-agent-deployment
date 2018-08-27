@@ -5,6 +5,7 @@ jobs:
   plan:
     - aggregate:
       - get: config
+        resource: sandbox-config
         trigger: true
       - get: pipeline
     - task: generate-configs
@@ -19,6 +20,7 @@ jobs:
   plan:
     - aggregate:
       - get: config
+        resource: nonprod-config
         trigger: true
       - get: pipeline
     - task: generate-configs
