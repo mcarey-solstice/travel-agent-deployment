@@ -1,0 +1,17 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: governmentpaas/spruce
+
+inputs:
+- name: config
+- name: pipeline
+
+outputs:
+- name: output
+
+run:
+  path: pipeline/ci/scripts/delete-configs.sh

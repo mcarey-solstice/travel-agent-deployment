@@ -1,0 +1,49 @@
+---
+
+jobs:
+- name: sandbox
+  plan:
+    - aggregate:
+      - get: config
+        trigger: true
+      - get: pipeline
+    - task: generate-configs
+      file: pipeline/ci/tasks/generate-configs.yml
+      params:
+        SETTINGS: ((sandbox.settings))
+    - task: use-configs
+      file: pipeline/ci/tasks/use-configs.yml
+    - task: delete-configs
+      file: pipeline/ci/tasks/delete-configs.yml
+- name: nonprod
+  plan:
+    - aggregate:
+      - get: config
+        trigger: true
+      - get: pipeline
+    - task: generate-configs
+      file: pipeline/ci/tasks/generate-configs.yml
+      params:
+        SETTINGS: ((nonprod.settings))
+    - task: use-configs
+      file: pipeline/ci/tasks/use-configs.yml
+    - task: delete-configs
+      file: pipeline/ci/tasks/delete-configs.yml
+
+resources:
+- name: pipeline
+  type: git
+  source:
+    uri: https://github.com/mcareysolstice/travel-agent-deployment
+
+- name: sandbox-config
+  type: git
+  source:
+    uri: https://github.com/mcareysolstice/travel-agent-configs
+    path: sandbox
+
+- name: nonprod-config
+  type: git
+  source:
+    uri: https://github.com/mcareysolstice/travel-agent-configs
+    path: nonprod

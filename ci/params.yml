@@ -1,0 +1,6 @@
+---
+sandbox:
+  settings: config/sandbox/settings.yml
+
+nonprod:
+  settings: config/nonprod/settings.yml
